@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Stranger things wall</title>
+        <style>
+            body
+            {
+                background-color: black;
+                background-image: url('parchment.jpg');
+                margin: 0;
+                
+            }
+            .wire
+            {
+                text-align: center;
+                white-space: nowrap;
+                position: absolute;
+                padding: 0;
+                width: 100%;
+                top: -80px;
+                border-bottom: 3px solid black;
+                height: 100px;
+            }
+            .wire li
+            {
+                position: relative;
+                list-style: none;
+                margin: 0 40px;
+                padding: 0;
+                display: inline-block;
+                width: 15px;
+                height: 30px;
+                border-radius: 50%;
+                top: 102px;
+                background: white;
+            }
+            .wire li:before
+            {
+                content: "";
+                position: absolute;
+                width: 14px;
+                height: 10px;
+                border-radius: 4px;
+                top:-5px;
+                left: 0;
+                background-color: black;
+            }
+            .wire li:nth-child(odd)
+            {
+              background-color: rgba(0,153,255,0.8);
+              box-shadow: 0px 2px 20px 4px rgba(0,153,255,0.8);
+            }
+           /* .wire li:nth-child(3n)
+            { 
+                background-color: rgba(15, 100, 60, 0.9);
+                box-shadow: 0px 2px 20px 4px rgba(15, 100, 60, 0.9);
+                
+            }*/
+            .wire li:nth-child(even)
+            {
+                background-color: rgba(255,105,180,0.9);
+                box-shadow: 0px 2px 20px 4px rgba(255,105,180,0.9);
+            }
+            /*@keyframes third-flash
+            {
+                0%, 100%
+                {
+                    background-color: rgba(15, 100, 60, 0.9);
+                    box-shadow: 0px 2px 20px 4px rgba(15, 100, 60, 0.9);
+                }
+                50%
+                {
+                    
+                    background-color:rgba(15, 100, 60, 0.5);
+                    box-shadow: 0px 2px 20px 4px rgba(240, 255, 0, 0.5);
+                }
+            }
+            @keyframes even-flash
+            {
+                0%, 100%
+                {
+                    background-color: rgba(255,105,180,0.9);
+                    box-shadow: 0px 2px 20px 4px rgba(255,105,180,0.9);
+                }
+                50%
+                {
+                    
+                    background-color:rgba(255,105,180,0.5);
+                    box-shadow: 0px 2px 20px 4px rgba(240, 255, 0, 0.5);
+                }
+            }
+            @keyframes odd-flash
+            {
+                50%
+                {
+                    background-color: rgba(0,153,255,0.8);
+                    box-shadow: 0px 2px 20px 4px  rgba(240, 255, 0, 0.5);
+                }
+                0%, 100%
+                {
+                    
+                    background-color: rgba(0,153,255,0.5);
+                    box-shadow: 0px 2px 20px 4px rgba(0,153,255,0.5);
+                }
+            }*/
+            .eachKey
+            {
+                height: 70px;
+                width: 70px;
+                background-color: rgba(0,0,0,0.7);
+                color: white;
+                font-size: 3rem;
+                border-radius: 50%;
+                text-align: center;
+                float: left;
+                margin: 1%;
+                box-shadow: 0.25rem 0.25rem 0.5rem 0.75rem rgba(0,0,0,0.4);
+            }
+            .keypad
+            {
+                position: relative;
+                margin-top: 15vh;
+                margin-left: 20vw;
+                height: auto;
+                width: 100%;
+                border: 1px solid black;
+                text-align: center;
+                color: white;
+                background-color: rgba(0,0,0,0.5);
+            }
+        </style>
+        <script>
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+                                }
+           async function illuminateLight(index)
+            {
+                message=document.getElementById("message").value;
+                message=message.toLocaleUpperCase();
+                //window.alert(message)
+            for(i=0;i<message.length; i++)
+            {   index=message.charCodeAt(i)-65;
+                //window.alert(index);
+                let colorValue=''
+                if(index>=0 && index<=7)
+                {
+                    ele=document.getElementById("setOne").getElementsByTagName("li")
+                }
+                else if(index>=8&&index<=16)
+                {
+                    ele=document.getElementById("setTwo").getElementsByTagName("li")
+                    index=index-8;
+                }
+                else if(index>=17&&index<=25)
+                {
+                    ele=document.getElementById("setThree").getElementsByTagName("li")
+                    index=index-17;
+                }
+                    //window.alert(ele[index])
+                    if(index%2!=0)
+                    {  //PINK
+                        ele[index].style.backgroundColor='#ff99ff';
+                        colorValue='rgba(255,105,180,0.9)'
+                        ele[index].style.boxShadow='0px 2px 20px 4px #ffff00';
+                    }
+                   /*else if(index==2 || index===8)
+                    {
+                        //GREEN
+                        ele[index].style.backgroundColor='#00ff00';
+                        colorValue='rgba(15, 100, 60, 0.9);'
+                        ele[index].style.boxShadow='0px 2px 20px 4px #ffff00';
+                        window.alert("Over here")
+                    }*/
+                   else
+                    {
+                        //BLUE
+                        ele[index].style.backgroundColor='aqua';
+                        colorValue='rgba(0,153,255,0.8)'
+                        ele[index].style.boxShadow='0px 2px 20px 4px  #ffff00';
+                    }
+                
+                await sleep(1000)
+                //window.alert(colorValue)
+                ele[index].style.backgroundColor=colorValue;
+                ele[index].style.boxShadow='0px 2px 20px 4px  '+colorValue;
+                await sleep(500)
+                }
+                
+            }
+        
+        </script>
+        
+    </head>
+    <body>
+        <ul class="wire" id="setOne">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+         <div class="keypad">
+            <div class="eachKey">
+                A
+            </div>
+            <div class="eachKey"> 
+                B
+            </div>
+            <div class="eachKey">
+                C
+            </div>
+            <div class="eachKey">
+                D
+            </div>
+            <div class="eachKey">
+                E
+            </div>
+            <div class="eachKey">
+                F
+            </div>
+            <div class="eachKey">
+                G
+            </div>
+            <div class="eachKey">
+                H
+            </div>
+        </div>
+        <ul class="wire" id="setTwo" style="position: relative; margin-top: 110px;">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+        </ul>
+        <div class="keypad" style="position: relative; margin: 0 17vw">
+        	<div class="eachKey">
+                I
+            </div>
+            <div class="eachKey">
+                J
+            </div>
+            <div class="eachKey">
+                K
+            </div>
+            <div class="eachKey">
+                L
+            </div>
+            <div class="eachKey">
+                M
+            </div>
+            <div class="eachKey">
+                N
+            </div>
+            <div class="eachKey">
+                O
+            </div>
+            <div class="eachKey">
+                P
+            </div>
+            <div class="eachKey">
+                Q
+            </div>
+          </div>
+        <ul class="wire" id="setThree" style="position: relative; margin-top: 100px;">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+        </ul>
+        <div class="keypad" style="position: relative; margin: 0 17vw; margin-top: -40px">
+        	
+            <div class="eachKey">
+                R
+            </div>
+            <div class="eachKey">
+                S
+            </div>
+            <div class="eachKey">
+                T
+            </div>
+            <div class="eachKey">
+                U
+            </div>
+            <div class="eachKey">
+                V
+            </div>
+            <div class="eachKey">
+                W
+            </div>
+            <div class="eachKey">
+                X
+            </div>
+            <div class="eachKey">
+                Y
+            </div>
+            <div class="eachKey">
+                Z
+            </div>
+        </div>
+        <div style="position: relative;">
+        <input type="text" id="message">
+        <button type="button" onclick="illuminateLight()">CLICK ME</button>
+        </div>
+    </body>
+</html>

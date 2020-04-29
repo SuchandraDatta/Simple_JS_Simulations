@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ENIGMA SIMULATION</title>
+        <style>
+            body
+            {
+                background-image: url('enigma_backpic.jpg');
+
+            }
+            .eachKey
+            {
+                height: 70px;
+                width: 70px;
+                background-color: black;
+                color: white;
+                font-size: 3rem;
+                border-radius: 50%;
+                text-align: center;
+                float: left;
+                margin: 1%;
+                box-shadow: 0.25rem 0.25rem 0.5rem 0.75rem rgba(0,0,0,0.4);
+            }
+            .keypad
+            {
+                position: relative;
+                margin-top: 15vh;
+                height: auto;
+                width: 100%;
+                border: 1px solid black;
+                text-align: center;
+                color: white;
+                background-color: rgba(0,0,0,0.5);
+            }
+            .screen
+            {
+                background-color: white;
+                color: black;
+                height: 20vh;
+                width: 20vw;
+                text-align: center;
+                position: relative;
+                left: 40vw;
+                top: 10vh;
+                font-size: 5rem;
+            }
+        </style>
+        <script>
+            rotor1="EKMFLGDQVZNTOWYHXUSPAIBRCJ"
+            rotor2="AJDKSIRUXBLHWTMCQGZNPYFVOE"
+            rotor3="BDFHJLCPRTXVZNYEIWGAKMUSQO"
+
+            reflector="YRUHQSLDPXNGOKMIEBFZCWVJAT"
+            rotor1Count=0;
+            rotor2Count=0;
+            rotor3Count=0;
+            function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+                                }
+            async function encrypt(index)
+            {
+                ele=document.getElementsByClassName("eachKey")
+                ele[index].style.backgroundColor='white';
+                ele[index].style.color='black';
+                encryptedChar=rotor3.charAt(rotor2.charCodeAt(rotor1.charCodeAt(index)-65)-65)
+                //window.alert(encryptedChar)
+                after_reflector=reflector.charAt(encryptedChar.charCodeAt(0)-65)
+
+                document.getElementsByClassName("screen")[0].innerHTML=after_reflector
+
+                rotor1Count=(rotor1Count+1)%26;
+                rotor1=rotor1.substring(1)+rotor1.substring(0,1);
+                if(rotor1Count==0)
+                rotor2Count=(rotor2Count+1)%26;
+                rotor2=rotor2.substring(1)+rotor2.substring(0,1);
+                if(rotor2Count==0)
+                rotor3Count=(rotor3Count+1)%26;
+                rotor3=rotor3.substring(1)+rotor3.substring(0,1);
+                await sleep(1000)
+                ele[index].style.backgroundColor='black';
+                ele[index].style.color='white';
+                //window.alert("After twisting rotor1:"+rotor1+" rotor2:"+rotor2+" rotor3: "+rotor3);
+
+            }
+            function defineRingSettings()
+            {
+                r1=document.getElementsByName("RingSettings1")[0].value
+                //window.alert(r1)
+                r2=document.getElementsByName("RingSettings2")[0].value
+                //window.alert(r2)
+                r3=document.getElementsByName("RingSettings3")[0].value
+                //window.alert(r3)
+
+                index=rotor1.indexOf(r1.toLocaleUpperCase())
+                rotor1=rotor1.substring(index)+rotor1.substring(0, index)
+                //window.alert(rotor1)
+
+                index=rotor2.indexOf(r2.toLocaleUpperCase())
+                rotor2=rotor2.substring(index)+rotor2.substring(0, index)
+                //window.alert(rotor2)
+
+                index=rotor3.indexOf(r3.toLocaleUpperCase())
+                rotor3=rotor3.substring(index)+rotor3.substring(0, index)
+                //window.alert(rotor3)
+            }
+        </script>
+
+    </head>
+    <body>
+        <div class="screen">
+
+        </div>
+        <div class="settings" style="position: relative; margin-top: 20vh; margin-left: 25vw;">
+        <b>ROTOR I</b>
+        <input type="text" value="E" name="RingSettings1" style="width: 10%; font-size: 1rem; font-weight: bolder;" 
+        onclick="value=''"/>
+        <b>ROTOR II</b>
+        <input type="text" value="A" name="RingSettings2" style="width: 10%; font-size: 1rem; font-weight: bolder;"
+        onclick="value=''"/>
+        <b>ROTOR III</b>
+        <input type="text" value="B" name="RingSettings3" style="width: 10%; font-size: 1rem; font-weight: bolder;"
+        onclick="value=''"/>
+        <input type="submit" value="SET" onclick="defineRingSettings()">
+        </div>
+        <div class="keypad">
+            <h3>Input keypad</h3>
+            <div class="eachKey" onclick="encrypt(0)">
+                A
+            </div>
+            <div class="eachKey" onclick="encrypt(1)"> 
+                B
+            </div>
+            <div class="eachKey" onclick="encrypt(2)">
+                C
+            </div>
+            <div class="eachKey" onclick="encrypt(3)">
+                D
+            </div>
+            <div class="eachKey" onclick="encrypt(4)">
+                E
+            </div>
+            <div class="eachKey" onclick="encrypt(5)">
+                F
+            </div>
+            <div class="eachKey" onclick="encrypt(6)">
+                G
+            </div>
+            <div class="eachKey" onclick="encrypt(7)">
+                H
+            </div>
+            <div class="eachKey" onclick="encrypt(8)">
+                I
+            </div>
+            <div class="eachKey" onclick="encrypt(9)">
+                J
+            </div>
+            <div class="eachKey" onclick="encrypt(10)">
+                K
+            </div>
+            <div class="eachKey" onclick="encrypt(11)">
+                L
+            </div>
+            <div class="eachKey" onclick="encrypt(12)">
+                M
+            </div>
+            <div class="eachKey" onclick="encrypt(13)">
+                N
+            </div>
+            <div class="eachKey" onclick="encrypt(14)">
+                O
+            </div>
+            <div class="eachKey" onclick="encrypt(15)">
+                P
+            </div>
+            <div class="eachKey" onclick="encrypt(16)">
+                Q
+            </div>
+            <div class="eachKey" onclick="encrypt(17)">
+                R
+            </div>
+            <div class="eachKey" onclick="encrypt(18)">
+                S
+            </div>
+            <div class="eachKey" onclick="encrypt(19)">
+                T
+            </div>
+            <div class="eachKey" onclick="encrypt(20)">
+                U
+            </div>
+            <div class="eachKey" onclick="encrypt(21)">
+                V
+            </div>
+            <div class="eachKey" onclick="encrypt(22)">
+                W
+            </div>
+            <div class="eachKey" onclick="encrypt(23)">
+                X
+            </div>
+            <div class="eachKey" onclick="encrypt(24)">
+                Y
+            </div>
+            <div class="eachKey" onclick="encrypt(25)">
+                Z
+            </div>
+        </div>
+    
+    </body>
+</html>
