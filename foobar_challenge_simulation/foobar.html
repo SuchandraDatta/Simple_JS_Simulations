@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body
+            {
+                background-color: black;
+                background-image: url('./kali-min.webp');
+                background-position: center;
+                background-size: contain;
+            }
+            .terminal
+            {
+                height: 90vh;
+                width: 100vw;
+                
+            }
+            #start-typing
+            {
+                color: #1bce65;
+                font-size: 1.5em;
+                font-weight: bold;
+            }
+            .input-box
+            {
+                background-color: transparent;
+                color: tomato;
+                font-weight: bolder;
+                border: none;
+            }
+        </style>
+    </head>
+    <body onload="start_showing()">
+        <div class="terminal">
+            <p id="start-typing">
+                 
+            </p>
+        </div>
+        <script>
+            let display_message='You speak our language. Up for a challenge? '
+            let commands_keyed_in=[]
+            let index_position=-1
+            console.log("here 1")
+            async function start_showing()
+            {
+                elem=document.getElementById("start-typing")
+                if(display_message.length>0)
+                {
+                    elem.innerHTML+="<br/><br/><span style=\"color:#41becb;\">foobar@challenge: </span>"
+                for(let i=0;i<display_message.length;i++)
+                {
+                    elem.innerHTML=elem.innerHTML+display_message.substring(i,i+1)
+                    //console.log(elem.innerHTML)
+                    await sleep(50)
+                }}
+                elem.innerHTML=elem.innerHTML+"<br/><br/><span style=\"color:#41becb;\">foobar@challenge:</span><input type='text' value='' class='input-box' onkeypress=hit_enter(event) onkeyup='hit_up_key(event)'>"
+            }
+            function hit_up_key(event)
+            {
+                if(event.keyCode==38)
+                {
+                    elem=document.getElementById("start-typing").getElementsByTagName("input")
+                if(index_position<0)
+                index_position=index_position+commands_keyed_in.length
+
+                elem[elem.length-1].
+                value=commands_keyed_in[index_position]
+
+                index_position=(index_position-1)%commands_keyed_in.length
+                
+                console.log(index_position)
+                console.log(elem[elem.length-1].value)
+                }
+                else if(event.keyCode==40)
+                {
+                    elem=document.getElementById("start-typing").getElementsByTagName("input")
+                if(index_position>=0)
+                elem[elem.length-1].
+                value=commands_keyed_in[index_position]
+
+                index_position=(index_position+1)%commands_keyed_in.length
+                console.log(index_position)
+                console.log(elem[elem.length-1].value)
+                }
+                
+            }
+            function sleep(this_time)
+            {
+                return new Promise(resolve=>setTimeout(resolve, this_time))
+                
+            }
+            async function hit_enter(event)
+            {
+                if(event.keyCode==13)
+                {
+                    //has the user input anything?
+                    elem=document.getElementById("start-typing").getElementsByTagName("input")
+                    console.log("STRIKE ONE", elem)
+                    most_recent_command=elem[elem.length-1].value
+                    elem[elem.length-1].remove()
+                    
+                    new_item=document.createElement("p")
+                    new_item.style.cssText="display: inline; color: tomato; font-weight: bolder;"
+                    new_item.innerHTML="   "+most_recent_command
+                    document.getElementById("start-typing").appendChild(new_item)
+                    console.log(elem)
+                    decide_course_of_action(most_recent_command)
+                }
+            }
+            async function decide_course_of_action(most_recent_command)
+             {
+                 commands_keyed_in.push(most_recent_command)
+                 index_position++
+
+                 console.log(commands_keyed_in)
+                if(most_recent_command=="")
+                    {}
+                    else if(most_recent_command=="yes")
+                    {
+                        display_message="List of commands | ls -l questions | submit | cat Question N Submit all answers at the end, submitting terminates the challenge. Save file as python_QN"
+                        start_showing()
+                                              
+                    }
+                    else if(most_recent_command=="ls -l questions")
+                    {
+                        document.getElementById("start-typing").innerHTML+="<br/><br/><span style=\"color:#41becb;\">foobar@challenge: </span><span style='color:#b710ab'><br/>Question 1 Some easy data structure related problem<br/>Question 2 Tougher DS problem<br/>Question 3 Tough DS problem</span>"
+                        display_message=""
+                        start_showing()
+                    }
+                    else if(most_recent_command=="submit")
+                    {
+                        document.getElementById("start-typing").innerHTML+="<br/><br/><span style=\"color:#41becb;\">foobar@challenge: </span><form method='post' action='./run-file' enctype='multipart/form-data'><input type='file' name='file-upload'></input><input type='submit' value='submit'></input></form>'"
+                    }
+                    else if(most_recent_command=="cat Question 1")
+                    {
+                        document.getElementById("start-typing").innerHTML+="<br/><span style=\"color:#41becb;\">foobar@challenge: </span>Compute sum of two integers given in such a manner that the size of the integer input is larger than the maximum size of integer for python but the progrma should still be able to compute their sum and output it via one print statement"
+                        display_message=""
+                        start_showing()
+                    }
+                    else if(most_recent_command=="cat Question 2")
+                    {
+                        document.getElementById("start-typing").innerHTML+="<br/><span style=\"color:#41becb;\">foobar@challenge: </span>Compute sum of two integers given in such a manner that the size of the integer input is larger than the maximum size of integer for python but the progrma should still be able to compute their sum and output it via one print statement"
+                        display_message=""
+                        start_showing()
+                    }
+                }
+        </script>
+    </body>
+</html>
