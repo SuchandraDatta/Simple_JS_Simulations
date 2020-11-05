@@ -1,8 +1,9 @@
 # Simple_JS_Simulations
 
 1. Stranger things wall
-![strangerThings](https://user-images.githubusercontent.com/41965125/80717086-10770b80-8b16-11ea-918c-6dab8b69d0d5.png)
-Type words in the input field and the message is shown by turning on and off the Christmas lights Stranger Things style.
+![mediu](https://user-images.githubusercontent.com/41965125/98245360-cf652580-1f96-11eb-9942-034737d8e3e0.png)
+Type words in the input field and the message is shown by turning on and off the Christmas lights Stranger Things style. 
+Learnt Promises, Async/Await, how to make Christmas lights using CSS
 https://codepen.io/Suchandra_Datta/pen/xxbEQdJ
 
 
